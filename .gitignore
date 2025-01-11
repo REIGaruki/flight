@@ -27,3 +27,9 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+/.idea/.gitignore
+/.idea/misc.xml
+/.idea/modules.xml
+/flight2.iml
+/out/
+/.idea/workspace.xml
