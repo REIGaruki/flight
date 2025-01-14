@@ -5,16 +5,13 @@ import java.util.Objects;
 
 public class FlightFilterQuery {
 
-    private final LocalDateTime DepartureTime;
+    private LocalDateTime DepartureTime;
 
-    private final LocalDateTime ArrivalTime;
+    private LocalDateTime ArrivalTime;
 
-    private final int SegmentCount;
+    private int SegmentCount;
 
-    public FlightFilterQuery(LocalDateTime departureTime, LocalDateTime arrivalTime, int segmentCount) {
-        DepartureTime = departureTime;
-        ArrivalTime = arrivalTime;
-        SegmentCount = segmentCount;
+    public FlightFilterQuery() {
     }
 
     public LocalDateTime getDepartureTime() {
