@@ -19,6 +19,13 @@ public class FlightFilter {
                 .collect(Collectors.toList());
     }
 
+    static List<Flight> removeBeforeDate(List<Flight> flights, LocalDateTime earliestDeparture) {
+        return flights.stream()
+                .filter(flight -> flight.getSegments().stream()
+                        .allMatch(segment -> segment.getDepartureDate().isAfter(earliestDeparture)))
+                .collect(Collectors.toList());
+    }
+
     static List<Flight> removeArrivalBeforeDepartment(List<Flight> flights) {
         return flights.stream()
                 .filter(flight -> flight.getSegments().stream()
@@ -26,7 +33,7 @@ public class FlightFilter {
                 .collect(Collectors.toList());
     }
 
-    static List<Flight> removeMoreThanGroundtimeOnGround(List<Flight> flights) {
+    static List<Flight> removeMoreThanGroundtimeOnGround(List<Flight> flights, long groundtime) {
         return flights.stream()
                 .filter(flight -> {
                     List<Segment> segments = flight.getSegments();
@@ -42,7 +49,7 @@ public class FlightFilter {
                         LocalDateTime departure = sorted[i].getDepartureDate();
                         totalGroundTime += Duration.between(arrival, departure).toMinutes();
                     }
-                    return totalGroundTime <= 120;
+                    return totalGroundTime <= groundtime * 60;
                 })
                 .collect(Collectors.toList());
     }
