@@ -52,6 +52,11 @@ public class FlightFilter implements FilterByArrival, FilterByDeparture, FilterB
     }
 
     public List<Flight> beforeAll(List<Flight> flights) {
+        // обязательная фильтрация списка
+        // удаляет перелеты не удовлетворяющие трем условиям задания
+        // также удаляет пустые перелеты
+        // сортирует сегменты по времени отправления и удаляет полеты в которых пара сегментов пересекаются
+        // (время отбытия второго до времени прибытия первого)
         flights = removeExpired(flights);
         flights = removeArrivalBeforeDepartment(flights);
         flights = removeMoreThanGroundtimeOnGround(flights, 2);
