@@ -26,6 +26,18 @@ public class FlightFilterQuery {
         return SegmentCount;
     }
 
+    public void setDepartureTime(LocalDateTime departureTime) {
+        DepartureTime = departureTime;
+    }
+
+    public void setArrivalTime(LocalDateTime arrivalTime) {
+        ArrivalTime = arrivalTime;
+    }
+
+    public void setSegmentCount(int segmentCount) {
+        SegmentCount = segmentCount;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
