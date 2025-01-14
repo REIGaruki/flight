@@ -1,5 +1,6 @@
 import model.Flight;
 import model.FlightFilterQuery;
+import service.FlightFilterTest;
 import service.FlightQueryService;
 
 import java.util.ArrayList;
@@ -13,5 +14,14 @@ public class Main {
         queries.add(query);
         System.out.println("before: " + flights);
         System.out.println("after :" + FlightQueryService.filterFlights(flights, queries));
+        System.out.println("tests passed:");
+        FlightFilterTest.testBeforeAll();
+        FlightFilterTest.testFilterByDeparture();
+        FlightFilterTest.testFilterByArrival();
+        FlightFilterTest.testFilterBySegmentCount();
+        FlightFilterTest.testRemoveBeforeDate();
+        FlightFilterTest.testRemoveExpired();
+        FlightFilterTest.testRemoveArrivalBeforeDepartment();
+        FlightFilterTest.testRemoveMoreThanGroundtimeOnGround();
     }
 }
