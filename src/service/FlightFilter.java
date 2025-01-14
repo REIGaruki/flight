@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class FlightFilter implements FilterByArrival, FilterByDeparture, FilterBySegmentCount {
 
-    static List<Flight> removeExpired(List<Flight> flights) {
+    private List<Flight> removeExpired(List<Flight> flights) {
         LocalDateTime currentTime = LocalDateTime.now();
         return flights.stream()
                 .filter(flight -> flight.getSegments().stream()
@@ -26,14 +26,14 @@ public class FlightFilter implements FilterByArrival, FilterByDeparture, FilterB
                 .collect(Collectors.toList());
     }
 
-    static List<Flight> removeArrivalBeforeDepartment(List<Flight> flights) {
+    private List<Flight> removeArrivalBeforeDepartment(List<Flight> flights) {
         return flights.stream()
                 .filter(flight -> flight.getSegments().stream()
                         .allMatch(segment -> segment.getArrivalDate().isAfter(segment.getDepartureDate())))
                 .collect(Collectors.toList());
     }
 
-    static List<Flight> removeMoreThanGroundtimeOnGround(List<Flight> flights, long groundtime) {
+    private List<Flight> removeMoreThanGroundtimeOnGround(List<Flight> flights, long groundtime) {
         return flights.stream()
                 .filter(flight -> {
                     List<Segment> segments = flight.getSegments();
@@ -52,6 +52,9 @@ public class FlightFilter implements FilterByArrival, FilterByDeparture, FilterB
     }
 
     public List<Flight> beforeAll(List<Flight> flights) {
+        flights = removeExpired(flights);
+        flights = removeArrivalBeforeDepartment(flights);
+        flights = removeMoreThanGroundtimeOnGround(flights, 2);
         return flights.stream()
                 .filter(flight -> {
                     List<Segment> segments = flight.getSegments();
